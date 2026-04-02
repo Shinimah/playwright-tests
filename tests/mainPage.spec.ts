@@ -120,8 +120,8 @@ test.describe('тесты главной страницы', () => {
         test.step(`Проверка названия элементa ${name}`, async () => {
          await expect(locator(page)).toContainText(text);
         });
-      };
-    })
+      }
+    });
   });
   test('Проверка атрибутов href элементов навигации хедера', async ({ page }) => {
      elements.forEach(({ locator, name, attribute }) => {
@@ -136,5 +136,9 @@ test.describe('тесты главной страницы', () => {
     await page.getByLabel('Switch between dark and light').click();
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'light')
   });
-})
-
+  ['light', 'dark'].forEach((value) => {
+    test(`Проверка стилей активного ${value} мода`, async ({ page }) => {
+      await expect(page).toHaveScreenshot('image.png');
+    });
+  }); 
+});
